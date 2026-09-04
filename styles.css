@@ -1,0 +1,164 @@
+/* ─── Sommaire shared styles ─────────────────────────────────
+   Palette matches the app's artifact colours, which are also the
+   four petals in the app icon.
+   ───────────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --summary:  #AF52DE;
+  --audio:    #0A84FF;
+  --photo:    #34C759;
+  --note:     #EE7A59;
+  --bg:       #0a0a0f;
+  --surface:  #13131a;
+  --card:     #1c1c26;
+  --border:   rgba(255,255,255,0.08);
+  --text:     #f0f0f5;
+  --muted:    rgba(240,240,245,0.55);
+  --radius:   18px;
+  --font:     -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--summary); text-decoration: none; }
+a:hover { text-decoration: underline; }
+img { max-width: 100%; display: block; }
+
+.serif { font-family: Georgia, "Times New Roman", serif; }
+h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.05; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 700; letter-spacing: -0.02em; line-height: 1.15; }
+h3 { font-size: 1.12rem; font-weight: 600; }
+p  { color: var(--muted); }
+
+.container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+.container-narrow { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+section { padding: 96px 0; }
+
+.grad {
+  background: linear-gradient(135deg, var(--summary), #e879f9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── Nav ──────────────────────────────────────────────────── */
+/* Class-scoped, not a bare `nav` selector: the legal pages' table of
+   contents is also a <nav>, and a bare selector pinned it over the header. */
+.site-nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+  padding: 14px 24px;
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(10,10,15,0.75);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 11px;
+  font-size: 1.12rem; font-weight: 700; color: var(--text);
+}
+.nav-logo:hover { text-decoration: none; }
+.nav-logo img { width: 32px; height: 32px; border-radius: 9px; }
+.nav-links { display: flex; align-items: center; gap: 22px; font-size: 0.9rem; }
+.nav-links a { color: var(--muted); }
+.nav-links a:hover { color: var(--text); text-decoration: none; }
+@media (max-width: 560px) { .nav-links a.hide-sm { display: none; } }
+
+/* ─── Buttons ──────────────────────────────────────────────── */
+.btn {
+  display: inline-flex; align-items: center; gap: 8px;
+  padding: 14px 28px; border-radius: 14px;
+  font-size: 0.95rem; font-weight: 600; cursor: pointer;
+  border: none; transition: transform 0.15s, opacity 0.15s;
+}
+.btn:hover { transform: translateY(-2px); opacity: 0.92; text-decoration: none; }
+.btn-primary { background: linear-gradient(135deg, var(--summary), #e879f9); color: #fff; }
+.btn-secondary { background: transparent; color: var(--text); border: 1px solid var(--border); }
+
+.section-label {
+  font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.12em; color: var(--summary); margin-bottom: 14px;
+}
+.section-intro { max-width: 560px; }
+
+/* ─── Footer ───────────────────────────────────────────────── */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 48px 24px; text-align: center;
+  color: var(--muted); font-size: 0.85rem;
+}
+footer .footer-logo {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-size: 1rem; font-weight: 700; color: var(--text); margin-bottom: 10px;
+}
+footer .footer-logo img { width: 26px; height: 26px; border-radius: 7px; }
+.footer-links { display: flex; gap: 20px; justify-content: center; flex-wrap: wrap; margin-top: 16px; }
+.footer-links a { color: var(--muted); }
+.footer-links a:hover { color: var(--text); }
+
+/* ─── Scroll fade-in ───────────────────────────────────────── */
+/* Scoped to .js so that without JavaScript every section is simply visible,
+   rather than a page of invisible content. */
+.js .fade-up { opacity: 0; transform: translateY(26px); transition: opacity 0.6s ease, transform 0.6s ease; }
+.js .fade-up.visible { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .js .fade-up { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ─── Legal pages ──────────────────────────────────────────── */
+.legal { padding: 140px 0 90px; }
+.legal h1 { font-size: clamp(2rem, 4vw, 2.9rem); margin-bottom: 8px; }
+.legal .updated {
+  display: inline-block; font-size: 0.82rem; color: var(--muted);
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 5px 14px; margin-bottom: 40px;
+}
+.legal h2 {
+  font-size: 1.35rem; margin: 48px 0 14px;
+  padding-top: 22px; border-top: 1px solid var(--border);
+}
+.legal h2:first-of-type { border-top: none; padding-top: 0; }
+.legal h3 { font-size: 1.02rem; margin: 26px 0 8px; color: var(--text); }
+.legal p { margin-bottom: 14px; }
+.legal ul { margin: 0 0 18px 22px; }
+.legal li { color: var(--muted); margin-bottom: 8px; }
+.legal strong { color: var(--text); font-weight: 600; }
+.legal table {
+  width: 100%; border-collapse: collapse; margin: 18px 0 24px;
+  font-size: 0.92rem; display: block; overflow-x: auto;
+}
+.legal th, .legal td {
+  text-align: left; padding: 11px 14px;
+  border-bottom: 1px solid var(--border);
+}
+.legal th { color: var(--text); font-weight: 600; white-space: nowrap; }
+.legal td { color: var(--muted); }
+.legal-toc {
+  background: var(--card); border: 1px solid var(--border);
+  border-radius: var(--radius); padding: 22px 26px; margin-bottom: 44px;
+}
+.legal-toc div {
+  font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 0.1em; color: var(--summary); margin-bottom: 12px;
+}
+.legal-toc ul { list-style: none; margin: 0; columns: 2; column-gap: 32px; }
+@media (max-width: 620px) { .legal-toc ul { columns: 1; } }
+.legal-toc li { margin-bottom: 7px; font-size: 0.9rem; }
+.legal-toc a { color: var(--muted); }
+.legal-toc a:hover { color: var(--text); }
+.legal-note {
+  background: rgba(175,82,222,0.08);
+  border: 1px solid rgba(175,82,222,0.22);
+  border-radius: var(--radius);
+  padding: 20px 24px; margin: 26px 0;
+}
+.legal-note p:last-child { margin-bottom: 0; }

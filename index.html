@@ -272,8 +272,8 @@
   <div class="nav-links">
     <a href="#features" class="hide-sm">Features</a>
     <a href="#pricing" class="hide-sm">Pricing</a>
-    <a href="privacy.html">Privacy</a>
-    <a href="terms.html">Terms</a>
+    <a href="privacy.html" data-legal="privacy">Privacy</a>
+    <a href="terms.html" data-legal="terms">Terms</a>
   </div>
 </nav>
 
@@ -454,13 +454,14 @@
       <span class="privacy-icon"><svg aria-hidden="true"><use href="#i-shield"/></svg></span>
       <h2>Private by design</h2>
       <p>All processing by Apple Intelligence stays on your device. Nothing is uploaded. Your recordings, photos, notes, transcripts and summaries are stored only on your iPhone and never reach us. There are no accounts, no analytics and no third-party trackers. Your content leaves your device only when you choose to export or share it.</p>
+      <p style="margin-top:14px;">Respect other people's privacy too. Ask before recording anyone, and follow the rules of each event, since some conferences do not allow recordings or photos. Only photograph documents you are allowed to keep, without private information or protected material. What you capture is your responsibility.</p>
       <div class="privacy-pills">
         <span class="privacy-pill">No accounts</span>
         <span class="privacy-pill">No servers</span>
         <span class="privacy-pill">No analytics</span>
         <span class="privacy-pill">On-device AI</span>
       </div>
-      <a class="btn btn-secondary" href="privacy.html">Read the privacy policy</a>
+      <a class="btn btn-secondary" href="privacy.html" data-legal="privacy">Read the privacy policy</a>
     </div>
   </div>
 </section>
@@ -509,7 +510,7 @@
       </div>
     </div>
 
-    <p class="pricing-note">Cancel anytime from your Apple Account settings. Prices shown in USD and may vary by region. See the <a href="terms.html">Terms of Use</a>.</p>
+    <p class="pricing-note">Cancel anytime from your Apple Account settings. Prices shown in USD and may vary by region. See the <a href="terms.html" data-legal="terms">Terms of Use</a>.</p>
   </div>
 </section>
 
@@ -570,10 +571,16 @@
   </a>
   <p>Capture everything. Understand instantly.</p>
   <div class="footer-links">
-    <a href="privacy.html">Privacy Policy</a>
-    <a href="terms.html">Terms of Use</a>
+    <a href="privacy.html" data-legal="privacy">Privacy Policy</a>
+    <a href="terms.html" data-legal="terms">Terms of Use</a>
     <a href="mailto:support@elyzeo.com">Contact</a>
   </div>
+  <p class="footer-legal-langs">
+    Privacy policy and terms also in
+    <a href="privacy-fr.html" lang="fr" hreflang="fr">Français</a>,
+    <a href="privacy-de.html" lang="de" hreflang="de">Deutsch</a> and
+    <a href="privacy-es.html" lang="es" hreflang="es">Español</a>.
+  </p>
   <p style="margin-top:18px;">© 2026 Stephane Boutet. All rights reserved.</p>
 </footer>
 
@@ -589,6 +596,19 @@
   }, { threshold: 0.12 });
 
   document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  // Point the legal links at the reader's own language. The href in the markup stays
+  // English, so this only ever upgrades a link that exists in a translated version.
+  const translated = ['fr', 'de', 'es'];
+  const preferred = (navigator.languages || [navigator.language || 'en'])
+    .map(tag => String(tag).slice(0, 2).toLowerCase())
+    .find(code => translated.includes(code));
+
+  if (preferred) {
+    document.querySelectorAll('[data-legal]').forEach(link => {
+      link.setAttribute('href', link.dataset.legal + '-' + preferred + '.html');
+    });
+  }
 </script>
 </body>
 </html>

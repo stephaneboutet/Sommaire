@@ -71,6 +71,18 @@ section { padding: 96px 0; }
 .nav-links a { color: var(--muted); }
 .nav-links a:hover { color: var(--text); text-decoration: none; }
 @media (max-width: 560px) { .nav-links a.hide-sm { display: none; } }
+/* The legal pages carry their nav labels in the reader's language, and "Confidentialité"
+   or "Nutzungsbedingungen" overran the logo on a phone. Let the row give way instead. */
+@media (max-width: 560px) {
+  .site-nav { padding: 12px 16px; gap: 12px; }
+  .nav-logo { flex-shrink: 0; font-size: 1rem; gap: 8px; }
+  .nav-logo img { width: 26px; height: 26px; }
+  .nav-links { gap: 14px; font-size: 0.82rem; flex-wrap: wrap; justify-content: flex-end; }
+}
+@media (max-width: 380px) {
+  .nav-logo span, .nav-logo { font-size: 0.94rem; }
+  .nav-links { gap: 10px; font-size: 0.78rem; }
+}
 
 /* ─── Buttons ──────────────────────────────────────────────── */
 .btn {
@@ -155,6 +167,18 @@ footer .footer-logo img { width: 26px; height: 26px; border-radius: 7px; }
 .legal-toc li { margin-bottom: 7px; font-size: 0.9rem; }
 .legal-toc a { color: var(--muted); }
 .legal-toc a:hover { color: var(--text); }
+.footer-legal-langs { font-size: 0.82rem; color: var(--muted); margin-top: 14px; }
+.legal-languages { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 28px; }
+.legal-languages a {
+  font-size: 0.82rem; color: var(--muted);
+  border: 1px solid var(--border); border-radius: 20px; padding: 5px 14px;
+}
+.legal-languages a:hover { color: var(--text); border-color: rgba(175,82,222,0.4); }
+.legal-languages a[aria-current="true"] {
+  color: var(--summary); border-color: rgba(175,82,222,0.45);
+  background: rgba(175,82,222,0.08);
+}
+.legal-governs { font-size: 0.85rem; color: var(--muted); margin: -28px 0 22px; }
 .legal-note {
   background: rgba(175,82,222,0.08);
   border: 1px solid rgba(175,82,222,0.22);
